@@ -1,0 +1,17 @@
+.job-card{
+    transition: all 0.2s;
+}
+.job-card:hover{
+    box-shadow: var(--bs-box-shadow) !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,14 @@
+{
+    "name":"backup/mvc",
+    "autoload": {
+        "psr-4": {
+            "App\\":"app/"
+        }
+    },
+    "require": {
+        "william-costa/dot-env": "^0.1.0",
+        "moccalotto/ssh": "^0.6.2",
+        "william-costa/database-manager": "^0.1.0",
+        "tiben/crontab-manager": "^1.4"
+    }
+}

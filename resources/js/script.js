@@ -15,13 +15,13 @@ $(document).ready(function(){
 				</button>
 			</a>
 		</div>`; //New input field html
-	var x = 1; //Initial field counter is 1
+	var numDir = 1; //Initial field counter is 1
 
 	// Once add button is clicked
 	$(addButton).click(function(){
 		// Check maximum numberof input fields
-		if(x < maxField){
-			x++; //Increase field counter
+		if(numDir < maxField){
+			numDir++; //Increase field counter
 			$(wrapper).append(fieldHTML); //Add field html
 		}else{
 			alert('Número máximo de 10 campos permitidos atingido. ');
@@ -32,7 +32,7 @@ $(document).ready(function(){
 	$(wrapper).on('click', '.remove_button', function(e){
 		e.preventDefault();
 		$(this).parent('div').remove(); //Remove field html
-		x--; //Decrease field counter
+		numDir--; //Decrease field counter
 	});
 });
 
@@ -211,8 +211,29 @@ function resetForm($formID) {
 }
 
 //TOGGLE PASSWORD
+function togglePassword(e) {
+	var passInput = e.offsetParent.children[0];
+	var toggle = e.offsetParent.children[1];
+	
+	
+	if(passInput.type == 'password') {
+		passInput.type = 'text'; 
+		toggle.innerHTML = `
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+				<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+				<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+	  		</svg>`;
+	}else{
+		passInput.type = 'password';
+		toggle.innerHTML = `
+			<svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+				<path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+				<path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+			</svg>`;
+	}
+}
 
-//EDITAR NOME DO BANCO DE DADOS PARA BACKUP
+//EDITAR NOME DO BANCO DE DADOS PARA BACKUP (NEW)
 $(document).ready(function () {
 	var hasDB = $('#hasDB');
 
@@ -222,9 +243,9 @@ $(document).ready(function () {
 
 		fieldHTML = `
 			<label for="dbNames" class="col-sm-5 col-form-label">Nome(s) do(s) Banco(s)</label>
-				<div class="col-sm-7">
-					<input type="text" class="form-control" id="dbNames" name="dbNames" placeholder="Nomes separados por espaço">
-				</div>`;
+			<div class="col-sm-7">
+				<input type="text" class="form-control" id="dbNames" name="dbNames" placeholder="Nomes separados por espaço">
+			</div>`;
 
 		if (selectVal == 'True') {
 			wrapper.removeClass('d-none');
@@ -235,4 +256,49 @@ $(document).ready(function () {
 			wrapper.addClass('d-none')
 		}
 	});
+});
+
+//EDITAR NOME DO BANCO DE DADOS PARA BACKUP (EDIT)
+$(document).ready(function () {
+	var hasDB = $('#editDB');
+	
+	if ($('#editDB option:selected').val() == 'True'){
+		$('.editDbNames').removeClass('d-none');
+	}
+
+	$(hasDB).on('change', function () {
+		var selectVal = $('#editDB option:selected').val();
+		var wrapper = $('.editDbNames');
+
+		fieldHTML = `
+			<label for="editDbNames" class="col-sm-5 col-form-label">Nome(s) do(s) Banco(s)</label>
+			<div class="col-sm-7">
+				<input type="text" class="form-control" id="editDbNames" name="dbNames" placeholder="Nomes separados por espaço">
+			</div>`;
+
+		if (selectVal == 'True') {
+			wrapper.children('label').remove();
+			wrapper.children('div').remove();
+			wrapper.removeClass('d-none');
+			wrapper.append(fieldHTML);
+			console.log('executei');
+		}else {
+			wrapper.children('label').remove();
+			wrapper.children('div').remove();
+			wrapper.addClass('d-none');
+		}
+	});
+});
+
+//EDIÇÃO DE HOSTS
+$(document).ready(function (){
+	var currentUrl = window.location.href; 
+	currentUrl = currentUrl.split('/hosts/');
+	if(currentUrl[1]){
+		var action = currentUrl[1].split('/');
+		if (action[1] == 'edit'){
+			//console.log('edit');
+			$('#modalEdit').modal('show');
+		}
+	}
 });

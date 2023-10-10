@@ -1,0 +1,101 @@
+<!-- Modal Cadastro New Host -->
+<div id="modalNew" class="modal fade hide in" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <form method="post" action="?page=1" id="hostForm">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h3 class="modal-title">{{title}}</h3>
+                    <button type="button" class="btn btn-close" onclick="resetForm('hostForm')" data-bs-dismiss="modal"></button>
+                </div><!--Fim modal header-->
+
+                <div class="modal-body">
+                    
+                    <div class="row mb-3">
+                        <label for="hostname" class="col-sm-2 col-form-label">Hostname</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="hostname" name="hostName">
+                        </div>
+                    </div>
+
+                    <div class="row mb-0">
+                        <label for="hostUser" class="col-sm-12 col-form-label">Informações do Host</label>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="hostUser" placeholder="Usuário" aria-label="Usuername">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" name="hostIP" placeholder="Server" aria-label="Server">
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="hostPass" class="col-sm-2 col-form-label">Senha</label>
+                        <div class="col-sm-10">
+                            <div class="input-group flex-nowrap">
+                                <input type="password" id="password" class="form-control" id="hostPass" name="hostPass" placeholder="Senha" aria-label="Password" aria-describedby="togglePassword">
+                                <span class="input-group-text" id="togglePassword" onclick="togglePassword(this)">
+                                    <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="description" class="col-sm-2 col-form-label">Descrição</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" aria-label="With textarea" id="description"
+                                name="hostDescription"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="hasDB" class="col-sm-5 col-form-label">Tem Banco de Dados?</label>
+                        <div class="col-sm-7">
+                            <select class="form-select" aria-label="ID do Host" name="hasDB" id="hasDB">
+                                <option value="">Selecione...</option>
+                                <option value="True">Sim</option>
+                                <option value="False">Não</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 dbNames d-none">
+
+                    </div>
+
+                    <fieldset class="mb-3">
+                        <label for="directories" class="col-sm-10 col-form-label">Diretórios para Backup:</label>
+                        <div class="directory_wrapper">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="/caminho/do/diretorio/..."
+                                    name="directory[]" value="">
+                                <a href="javascript:void(0);" class="add_button" title="Adicionar mais diretórios">
+                                    <button class="rounded-end btn btn-outline-primary" type="button" id="button-addon2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                            class="bi bi-folder-plus" viewBox="0 0 16 16">
+                                            <path
+                                                d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2Zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672Z" />
+                                            <path
+                                                d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5Z" />
+                                        </svg>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div><!--fim modal body-->
+
+                <div class="modal-footer">
+                    <button type="button" onclick="resetForm('hostForm')" class="btn btn-danger"
+                        data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div><!--fim modal footer-->
+            </div><!--fim do modal content-->
+        </form>
+    </div><!--fim modal dialog-->
+</div><!--fim modal-->

@@ -63,7 +63,6 @@ class Host{
 
     /**
      * Método responsável por formatar os diretórios para backup do Host
-     * @var Host
      */
     private function setHostDirectory(){
         $this->directory = implode('<br>', $this->directory);
@@ -92,6 +91,15 @@ class Host{
 
         //SUCESSO
         return true;
+    }
+
+    /**
+     * Método responsável por retornar um host com base no seu id
+     * @param integer $id
+     * $return Host
+     */
+    public static function getHostById($id){
+        return self::getHosts('id = '.$id)->fetchObject(self::class);
     }
 
     /**

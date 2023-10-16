@@ -77,7 +77,7 @@ class Host{
         //FORMATA OS DIRETÓRIOS PARA BACKUP
         self::setHostDirectory();
         
-        //INSERE O JOB NO BANCO DE DADOS
+        //INSERE O HOST NO BANCO DE DADOS
         $this->id = (new Database('hosts'))->insert([
             'hostName'          => $this->hostName,
             'hostUser'          => $this->hostUser,
@@ -91,6 +91,43 @@ class Host{
 
         //SUCESSO
         return true;
+    }
+
+    /**
+     * Método responsável por atualizar uma instância banco de dados
+     * @return boolean
+     */
+    public function atualizar(){
+
+        //FORMATA OS DIRETÓRIOS PARA BACKUP
+        self::setHostDirectory();
+        
+        //ATUALIZA O HOST NO BANCO DE DADOS
+        return (new Database('hosts'))->update('id = '.$this->id, [
+            'hostName'          => $this->hostName,
+            'hostUser'          => $this->hostUser,
+            'hostIP'            => $this->hostIP,
+            'hostPass'          => $this->hostPass,
+            'hostDescription'   => $this->hostDescription,       
+            'hasDB'             => $this->hasDB,
+            'dbNames'           => $this->dbNames,
+            'directory'         => $this->directory
+        ]);
+
+        //SUCESSO
+        return true;
+
+    }
+
+    /**
+     * Método responsável por deletar uma instância banco de dados
+     * @return boolean
+     */
+    public function excluir(){
+        
+        //DELETA HOST NO BANCO DE DADOS
+        return (new Database('hosts'))->delete('id = '.$this->id);
+
     }
 
     /**

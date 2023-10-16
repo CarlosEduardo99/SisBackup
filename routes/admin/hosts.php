@@ -32,3 +32,33 @@ $obRouter->get('/admin/hosts/{id}/edit',[
         return new Response(200,Admin\Host::getEditHost($request,$id));
     }
 ]);
+
+//ROTA DE EDIÇÃO DE UM HOST (POST)
+$obRouter->post('/admin/hosts/{id}/edit',[
+    'middlewares' => [
+        'require-admin-login'
+    ],
+    function($request,$id){
+        return new Response(200,Admin\Host::setEditHost($request,$id));
+    }
+]);
+
+//ROTA DE EXCLUSÃO DE UM HOST
+$obRouter->get('/admin/hosts/{id}/delete',[
+    'middlewares' => [
+        'require-admin-login'
+    ],
+    function($request,$id){
+        return new Response(200,Admin\Host::getDeleteHost($request,$id));
+    }
+]);
+
+//ROTA DE EXCLUSÃO DE UM HOST (POST)
+$obRouter->post('/admin/hosts/{id}/delete',[
+    'middlewares' => [
+        'require-admin-login'
+    ],
+    function($request,$id){
+        return new Response(200,Admin\Host::setDeleteHost($request,$id));
+    }
+]);

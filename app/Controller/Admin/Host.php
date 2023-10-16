@@ -62,7 +62,8 @@ class Host extends Page{
             'modalNew'     => View::render('admin/modules/hosts/modal/newhost',[
                 'title' => 'Novo Host'
             ]),
-            'modalEdit'     => ''
+            'modalEdit'     => '',
+            'status'        => self::getStatus($request)
         ]);
 
         //RETORNA A PÁGINA COMPLETA
@@ -92,6 +93,32 @@ class Host extends Page{
         
         //REDIRECIONA O USUÁRIO
         $request->getRouter()->redirect('/admin/hosts?status=created');
+    }
+
+    /**
+     * Método responsável por retornar a mensagem de estaus
+     * @param Request $request
+     * @return string
+     */
+    private static function getStatus($request){
+        //QUERY PARAMS
+        $queryParams = $request->getQueryParams();
+
+        //STATUS
+        if(!isset($queryParams['status'])) return '';
+
+        //MENSAGENS DE STATUS
+        switch ($queryParams['status']) {
+            case 'created':
+                return Alert::getSuccess('Host criado com sucesso!');
+                break;
+            case 'edited':
+                return Alert::getSuccess('Host editado com sucesso!');
+                break;
+            case 'deleted':
+                return Alert::getSuccess('Host exluído com sucesso!');
+                break;
+        }
     }
 
      /**
@@ -148,16 +175,113 @@ class Host extends Page{
             'directory'         => $directories ?? '',
             'modalNew'      => View::render('admin/modules/hosts/modal/newhost',[
                 'title'     => 'Novo Host'
-            ])
+            ]),
+            'status'            => self::getStatus($request)
+        ]);
+
+        //RETORNA A PÁGINA COMPLETA
+        return parent::getPanel('SISBACKUP::Hosts', $content,'hosts');
+        
+    }
+
+    /**
+     * Método responsável por gravar a atualização de um host
+     * @param Request $request
+     * @param integer $id
+     * @return string
+     */
+    public static function setEditHost($request,$id){
+        //OBTÉM O HOST DO BANCO DE DADOS
+        $obHost = EntityHost::getHostById($id);
+
+        //VALIDA A INSTÂNCIA
+        if(!$obHost instanceof EntityHost){
+            $request->getRouter()->redirect('/admin/hosts');
+        }
+    
+        //POST VARS
+        $postVars = $request->getPostVars();
+
+        //ATUALIZA A INSTÂNCIA
+        $obHost->hostName           = $postVars['hostName'] ?? $obHost->hostName; 
+        $obHost->hostUser           = $postVars['hostUser'] ?? $obHost->hostUser;
+        $obHost->hostIP             = $postVars['hostIP'] ?? $obHost->hostIP;
+        $obHost->hostPass           = $postVars['hostPass'] ?? $obHost->hostPass;
+        $obHost->hostDescription    = $postVars['hostDescription'] ?? $obHost->hostDescription;
+        $obHost->hasDB              = $postVars['hasDB'] ?? $obHost->hasDB;
+        $obHost->dbNames            = $postVars['dbNames'] ?? $obHost->dbNames;
+        $obHost->directory          = $postVars['directory'] ?? $obHost->directory;
+        $obHost->atualizar();
+
+        //REDIRECIONA O USUÁRIO
+        $request->getRouter()->redirect('/admin/hosts/'.$obHost->id.'/edit?status=edited');        
+    
+    }
+
+    /**
+     * Método responsável por renderizar página de exclusão de um host
+     * @param Request $request
+     * @param integer $id
+     * @return string
+     */
+    public static function getDeleteHost($request,$id){
+        //OBTÉM O HOST DO BANCO DE DADOS
+        $obHost = EntityHost::getHostById($id);
+
+        //VALIDA A INSTÂNCIA
+        if(!$obHost instanceof EntityHost){
+            $request->getRouter()->redirect('/admin/hosts');
+        }
+
+         //CONTEÚDO DA HOME
+        $content = View::render('admin/modules/hosts/delete',[
+            'hostName' => $obHost->hostName,
+            'hostIP' => $obHost->hostIP,
+            'dbNames' => $obHost->dbNames,
+            'directory' => $obHost->directory,
+            'jobs' => 'A ser implementado'
         ]);
 
         //RETORNA A PÁGINA COMPLETA
         return parent::getPanel('SISBACKUP::Hosts', $content,'hosts');
 
-        echo "<pre>"; print_r($request); echo "</pre>"; exit;
-
-        
     }
     
+    /**
+     * Método responsável por excluir um host
+     * @param Request $request
+     * @param integer $id
+     * @return string
+     */
+    public static function setDeleteHost($request,$id){
+        //OBTÉM O HOST DO BANCO DE DADOS
+        $obHost = EntityHost::getHostById($id);
+
+        //VALIDA A INSTÂNCIA
+        if(!$obHost instanceof EntityHost){
+            $request->getRouter()->redirect('/admin/hosts');
+        }
+    
+        //POST VARS
+        $postVars = $request->getPostVars();
+
+        //VALIDAÇÃO DA AÇÃO
+        if(isset($postVars['action']) && $postVars['action'] == 'delete'){
+            //EXCLUI O HOST
+            $obHost->excluir();
+
+            //REDIRECIONA O USUÁRIO
+            $request->getRouter()->redirect('/admin/hosts?status=deleted'); 
+        }else{
+            //REDIRECIONA O USUÁRIO
+            $request->getRouter()->redirect('/admin/hosts?status=erro'); 
+        }
+
+        
+        
+
+               
+    
+    }
     
 }

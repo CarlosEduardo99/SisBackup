@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'backup/mvc',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '5f7e5fba045a8c35317256e0ea122c8884e5e1cd',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,11 +11,20 @@
     ),
     'versions' => array(
         'backup/mvc' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '5f7e5fba045a8c35317256e0ea122c8884e5e1cd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'icanboogie/datetime' => array(
+            'pretty_version' => 'v2.0.0',
+            'version' => '2.0.0.0',
+            'reference' => '68a6bd55795726cdfcb285e95f41844a36422bee',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../icanboogie/datetime',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

@@ -145,18 +145,18 @@ $(document).ready(function (){
 					<div class="col-sm-4">
 						<select id="recurrence" class="form-select" aria-label="Recorrência do Backup" name="jobProgram[semi-annual][month]">
 							<option value="">Mês...</option>
-							<option value="jan">Janeiro</option>
-							<option value="feb">Fevereiro</option>
-							<option value="mar">Março</option>
-							<option value="apr">Abril</option>
-							<option value="may">Maio</option>
-							<option value="jun">Junho</option>
-							<option value="jul">Julho</option>
-							<option value="aug">Agosto</option>
-							<option value="sep">Setembro</option>
-							<option value="oct">Outubro</option>
-							<option value="nov">Novembro</option>
-							<option value="dec">Dezembro</option>
+							<option value="Jan">Janeiro</option>
+							<option value="Feb">Fevereiro</option>
+							<option value="Mar">Março</option>
+							<option value="Apr">Abril</option>
+							<option value="May">Maio</option>
+							<option value="Jun">Junho</option>
+							<option value="Jul">Julho</option>
+							<option value="Aug">Agosto</option>
+							<option value="Sep">Setembro</option>
+							<option value="Oct">Outubro</option>
+							<option value="Nov">Novembro</option>
+							<option value="Dec">Dezembro</option>
 						</select>
 					</div>`;
 				
@@ -181,18 +181,18 @@ $(document).ready(function (){
 						<div class="col-sm-4">
 							<select class="form-select" aria-label="Recorrência do Backup" name="jobProgram[annually][month]">
 								<option value="">Mês...</option>
-								<option value="jan">Janeiro</option>
-								<option value="feb">Fevereiro</option>
-								<option value="mar">Março</option>
-								<option value="apr">Abril</option>
-								<option value="may">Maio</option>
-								<option value="jun">Junho</option>
-								<option value="jul">Julho</option>
-								<option value="aug">Agosto</option>
-								<option value="sep">Setembro</option>
-								<option value="oct">Outubro</option>
-								<option value="nov">Novembro</option>
-								<option value="dec">Dezembro</option>
+								<option value="Jan">Janeiro</option>
+								<option value="Feb">Fevereiro</option>
+								<option value="Mar">Março</option>
+								<option value="Apr">Abril</option>
+								<option value="May">Maio</option>
+								<option value="Jun">Junho</option>
+								<option value="Jul">Julho</option>
+								<option value="Aug">Agosto</option>
+								<option value="Sep">Setembro</option>
+								<option value="Oct">Outubro</option>
+								<option value="Nov">Novembro</option>
+								<option value="Dec">Dezembro</option>
 							</select>
 						</div>`;
 					
@@ -303,3 +303,9 @@ $(document).ready(function (){
 	}
 });
 
+//FECHAR ALERTA
+$(document).ready(function (){
+	$(".alert").delay(4000).slideUp(200, function() {
+		$(this).alert('close');
+	});
+});

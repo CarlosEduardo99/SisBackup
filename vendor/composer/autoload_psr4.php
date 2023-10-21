@@ -10,5 +10,6 @@ return array(
     'WilliamCosta\\DatabaseManager\\' => array($vendorDir . '/william-costa/database-manager/src'),
     'TiBeN\\' => array($vendorDir . '/tiben/crontab-manager/src'),
     'Moccalotto\\Ssh\\' => array($vendorDir . '/moccalotto/ssh/src'),
+    'ICanBoogie\\' => array($vendorDir . '/icanboogie/datetime/lib'),
     'App\\' => array($baseDir . '/app'),
 );

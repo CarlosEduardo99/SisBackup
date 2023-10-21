@@ -4,8 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37ad801470df8e4fad1718c6532d4e48",
+    "content-hash": "2570e3a9e5819cbba71629a15bd00afe",
     "packages": [
+        {
+            "name": "icanboogie/datetime",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ICanBoogie/DateTime.git",
+                "reference": "68a6bd55795726cdfcb285e95f41844a36422bee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ICanBoogie/DateTime/zipball/68a6bd55795726cdfcb285e95f41844a36422bee",
+                "reference": "68a6bd55795726cdfcb285e95f41844a36422bee",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "icanboogie/common": "^2.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "icanboogie/common": "Allows finer exceptions to be thrown"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ICanBoogie\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Olivier Laviale",
+                    "email": "olivier.laviale@gmail.com",
+                    "homepage": "https://olvlvl.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Extends the features of PHP DateTime and DateTimeZone",
+            "homepage": "https://icanboogie.org/",
+            "keywords": [
+                "date",
+                "time",
+                "timezone"
+            ],
+            "support": {
+                "issues": "https://github.com/ICanBoogie/DateTime/issues",
+                "source": "https://github.com/ICanBoogie/DateTime"
+            },
+            "time": "2022-06-23T18:41:23+00:00"
+        },
         {
             "name": "moccalotto/ssh",
             "version": "v0.6.2",

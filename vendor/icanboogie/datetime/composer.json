@@ -1,0 +1,43 @@
+{
+	"name": "icanboogie/datetime",
+	"type": "library",
+	"description": "Extends the features of PHP DateTime and DateTimeZone",
+	"keywords": ["time", "date", "timezone"],
+	"homepage": "https://icanboogie.org/",
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Olivier Laviale",
+			"email": "olivier.laviale@gmail.com",
+			"homepage": "https://olvlvl.com/",
+			"role" : "Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/ICanBoogie/DateTime/issues",
+		"source": "https://github.com/ICanBoogie/DateTime"
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"require": {
+		"php": ">=7.3"
+	},
+	"require-dev": {
+		"icanboogie/common": "^2.0",
+		"phpunit/phpunit": "^9.5"
+	},
+	"suggest": {
+		"icanboogie/common": "Allows finer exceptions to be thrown"
+	},
+	"autoload": {
+		"psr-4": {
+			"ICanBoogie\\": "lib"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Test\\ICanBoogie\\": "tests"
+		}
+	}
+}

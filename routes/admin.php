@@ -8,3 +8,6 @@ include __DIR__.'/admin/login.php';
 
 //INCLUI AS ROTAS DE HOSTS
 include __DIR__.'/admin/hosts.php';
+
+//INCLUI AS ROTAS DE JOBS
+include __DIR__.'/admin/jobs.php';

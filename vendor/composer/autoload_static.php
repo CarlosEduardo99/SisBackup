@@ -20,6 +20,10 @@ class ComposerStaticInit68d551898ebd9cafa2103ff4bcd4f861
         array (
             'Moccalotto\\Ssh\\' => 15,
         ),
+        'I' => 
+        array (
+            'ICanBoogie\\' => 11,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -42,6 +46,10 @@ class ComposerStaticInit68d551898ebd9cafa2103ff4bcd4f861
         'Moccalotto\\Ssh\\' => 
         array (
             0 => __DIR__ . '/..' . '/moccalotto/ssh/src',
+        ),
+        'ICanBoogie\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/icanboogie/datetime/lib',
         ),
         'App\\' => 
         array (

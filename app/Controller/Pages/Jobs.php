@@ -3,7 +3,7 @@
 namespace App\Controller\Pages;
 
 use \App\Utils\View;
-use \App\Model\Entity\Jobs as EntityJobs;
+use \App\Model\Entity\Job as EntityJob;
 use \App\Model\Entity\Host as EntityHost;
 
 class Jobs extends Page{
@@ -17,22 +17,22 @@ class Jobs extends Page{
         $itens = '';
 
         //RESULTADOS DA PÁGINA
-        $results = EntityJobs::getJobs(
+        $results = EntityJob::getJobs(
             null,
             'INNER JOIN jobRecurrence recurrence ON jobs.jobRecurrence = recurrence.id',
             'INNER JOIN hosts ON jobs.hostID = hosts.id',
             'jobs.id',
             null,
-            'jobs.id,jobName,recurrence,jobType,jobProgram,jobTime,hostID,hosts.hostName,jobDescription,jobRetention,creationDate');
+            'jobs.id,jobName,jobRecurrence,recurrence,jobType,jobProgram,jobTime,hostID,hosts.hostName,jobDescription,jobRetention,creationDate');
         
         //RENDERIZA O ITEM
-        while($obJobs = $results->fetchObject(EntityJobs::class)){
+        while($obJobs = $results->fetchObject(EntityJob::class)){
             //VIEW DA PÁGINA HOSTS
             $itens .= View::render('pages/job/item', [
                 'jobName'           => $obJobs->jobName,
                 'jobRecurrence'     => $obJobs->recurrence,
                 'jobType'           => $obJobs->jobType == '1' ? 'Incremental' : 'Full',
-                'jobProgram'        => $obJobs->jobProgram,
+                'jobProgram'        => EntityJob::getProgram($obJobs->jobRecurrence, $obJobs->jobProgram),
                 'jobTime'           => $obJobs->jobTime,
                 'hostID'            => $obJobs->hostName,
                 'jobDescription'    => $obJobs->jobDescription,
@@ -56,7 +56,7 @@ class Jobs extends Page{
             
         $results = EntityHost::getHosts(null,null,null,'id', null, 'id,hostName');
 
-        while($obHost = $results->fetchObject(EntityJobs::class)){
+        while($obHost = $results->fetchObject(EntityJob::class)){
             //VIEW DA PÁGINA HOSTS
             $itens .= '<option value="'.$obHost->id.'">'.$obHost->hostName.'</option>';
         }
@@ -81,7 +81,7 @@ class Jobs extends Page{
         $postVars = $request->getPostVars();
 
         //NOVA INSTANCIA DE JOB
-        $obJob = new EntityJobs;
+        $obJob = new EntityJob;
         $obJob->jobName         = $postVars['jobName'];
         $obJob->jobType         = $postVars['jobType'];
         $obJob->jobRecurrence   = $postVars['jobRecurrence'];

@@ -78,6 +78,7 @@ class Job extends Page{
             ]),
             'select'        => $selectHosts,
             'modalEdit'     => '',
+            'jobs'          => !empty(self::getJobsItems($request,$obPagination)) ? '' : 'd-none',
             'status'        => self::getStatus($request)
         ]);
 

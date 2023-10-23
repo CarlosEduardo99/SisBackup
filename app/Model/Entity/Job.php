@@ -130,9 +130,30 @@ class Job{
             'jobDescription'=> $this->jobDescription,
             'jobRetention'  => $this->jobRetention
         ]);
+
+        if($this->id){
+            self::setRelation($this->hostID,$this->id);
+
+            //SUCESSO
+            return true;
+        }else{
+            return false;
+        }
         
-        //SUCESSO
-        return true;
+        
+    }
+
+    /**
+     * Método responsável por cria a relação host - job
+     * @param integer $hostID
+     * @param integer $jobID
+     * @return PDOStatement
+     */
+    private static function setRelation($hostID, $jobID){
+        return (new Database('hosts_jobs'))->insert([
+            'id_host'   => $hostID,
+            'id_job'    => $jobID
+        ]);   
     }
 
     /**
@@ -142,7 +163,7 @@ class Job{
     public function excluir(){
         
         //DELETA HOST NO BANCO DE DADOS
-        return (new Database('hosts'))->delete('id = '.$this->id);
+        return (new Database('jobs'))->delete('id = '.$this->id);
 
     }
 
@@ -291,8 +312,5 @@ class Job{
         }else{
             return 'Todo dia '.$dia.' de '.$mesesDoAno[$mes];
         }
-
-        
-        
     }
 }

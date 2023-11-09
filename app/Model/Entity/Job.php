@@ -4,7 +4,9 @@ namespace App\Model\Entity;
 
 use Exception;
 use \WilliamCosta\DatabaseManager\Database;
-use ICanBoogie\DateTime;
+use \App\Model\Entity\Relation;
+use \App\Model\Entity\Cron;
+use \ICanBoogie\DateTime;
 
 date_default_timezone_set('America/Manaus');
 
@@ -117,7 +119,13 @@ class Job{
     public function cadastrar(){
         //DEFINE A DATA
         $this->creationDate = date('Y-m-d H:i:s');
+        
         self::setJobProgram();
+
+        //CRON
+        //$obCron = new Cron();
+
+        //echo "<pre>"; print_r($obCron); echo "</pre>"; exit;
 
         //INSERE O JOB NO BANCO DE DADOS
         $this->id = (new Database('jobs'))->insert([
@@ -126,35 +134,20 @@ class Job{
             'jobRecurrence' => $this->jobRecurrence,
             'jobProgram'    => $this->jobProgram,
             'jobTime'       => $this->jobTime,
-            'hostID'        => $this->hostID,
             'jobDescription'=> $this->jobDescription,
             'jobRetention'  => $this->jobRetention
         ]);
 
         if($this->id){
-            self::setRelation($this->hostID,$this->id);
+            Relation::setRelation($this->hostID,$this->id);
 
             //SUCESSO
             return true;
         }else{
             return false;
         }
-        
-        
     }
 
-    /**
-     * Método responsável por cria a relação host - job
-     * @param integer $hostID
-     * @param integer $jobID
-     * @return PDOStatement
-     */
-    private static function setRelation($hostID, $jobID){
-        return (new Database('hosts_jobs'))->insert([
-            'id_host'   => $hostID,
-            'id_job'    => $jobID
-        ]);   
-    }
 
     /**
      * Método responsável por deletar uma instância banco de dados
@@ -164,6 +157,37 @@ class Job{
         
         //DELETA HOST NO BANCO DE DADOS
         return (new Database('jobs'))->delete('id = '.$this->id);
+
+    }
+
+     /**
+     * Método responsável por atualizar uma instância banco de dados
+     * @return boolean
+     */
+    public function atualizar(){
+
+        self::setJobProgram(); 
+
+        //echo "<pre>"; print_r($this); echo "</pre>"; exit;
+
+        //ATUALIZA O HOST NO BANCO DE DADOS
+        $jobUpdate =  (new Database('jobs'))->update('id = '.$this->id, [
+            'jobName'       => $this->jobName,
+            'jobType'       => $this->jobType,
+            'jobRecurrence' => $this->jobRecurrence,
+            'jobProgram'    => $this->jobProgram,
+            'jobTime'       => $this->jobTime,
+            'jobDescription'=> $this->jobDescription,
+            'jobRetention'  => $this->jobRetention
+        ]);
+
+        //ATUALIZA A RELAÇÃO HOST - JOB
+        if($jobUpdate == true){;
+            Relation::updateHost($this->id, $this->hostID);
+        }
+
+        //SUCESSO
+        return true;
 
     }
 
@@ -313,4 +337,5 @@ class Job{
             return 'Todo dia '.$dia.' de '.$mesesDoAno[$mes];
         }
     }
+
 }

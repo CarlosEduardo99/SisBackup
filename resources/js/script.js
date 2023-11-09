@@ -43,7 +43,7 @@ $(document).ready(function(){
 	$('a[href=".'+pathName+'"]').addClass("active");
 });
 
-// EDITAR A RECORRÊNCIA DOS BACKUPS
+// EDITAR A RECORRÊNCIA DOS BACKUPS (NEW)
 $(document).ready(function (){
 	var recurrenceSelect = $('#recurrence');
 	var wrapper = $('.jobDate');
@@ -205,6 +205,170 @@ $(document).ready(function (){
 	});
 });
 
+// EDITAR A RECORRÊNCIA DOS BACKUPS (EDIT)
+$(document).ready(function (){
+	var recurrenceSelect = $('#recurrence2');
+	var wrapper = $('.jobDate2');
+
+	$(recurrenceSelect).on('change', function () {
+		var selectVal = $('#recurrence2 option:selected').val();
+		console.log('EDIT');
+		wrapper.removeClass('d-none');
+		
+		switch(selectVal) {
+			case '1':
+				fieldHTML = `
+					<label for="jobProgram" class="col-sm-4 col-form-label">Programação</label>
+					<div class="col-sm-8">
+						<div class="form-check form-check-inline">
+							<input type="checkbox" class="form-check-input" id="checkbox0" name="jobProgram[days][]" value="0">
+							<label for="checkbox1" class="form-check-label">Dom</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input type="checkbox" class="form-check-input" id="checkbox1" name="jobProgram[days][]" value="1">
+							<label for="checkbox1" class="form-check-label">Seg</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input type="checkbox" class="form-check-input" id="checkbox2" name="jobProgram[days][]" value="2">
+							<label for="checkbox1" class="form-check-label">Ter</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input type="checkbox" class="form-check-input" id="checkbox3" name="jobProgram[days][]" value="3">
+							<label for="checkbox1" class="form-check-label">Qua</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input type="checkbox" class="form-check-input" id="checkbox4" name="jobProgram[days][]" value="4">
+							<label for="checkbox1" class="form-check-label">Qui</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input type="checkbox" class="form-check-input" id="checkbox5" name="jobProgram[days][]" value="5">
+							<label for="checkbox1" class="form-check-label">Sex</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input type="checkbox" class="form-check-input" id="checkbox6" name="jobProgram[days][]" value="6">
+							<label for="checkbox1" class="form-check-label">Sáb</label>
+						</div>
+					</div>`;
+
+				wrapper.children('label').remove();
+				wrapper.children('div').remove()
+				wrapper.append(fieldHTML);
+				break;
+			
+			case '2':
+				fieldHTML = `
+					<label for="jobProgram" class="col-sm-4 col-form-label">Selecione o dia</label>
+					<div class="col-sm-8">
+						<select id="recurrence" class="form-select" aria-label="Recorrência do Backup" name="jobProgram[weekly]">
+							<option>Selecione...</option>
+							<option value="0">Domingo</option>
+							<option value="1">Segunda</option>
+							<option value="2">Terça</option>
+							<option value="3">Quarta</option>
+							<option value="4">Quinta</option>
+							<option value="5">Sexta</option>
+							<option value="6">Sábado</option>
+						</select>
+					</div>`;
+
+				wrapper.children('label').remove();
+				wrapper.children('div').remove()
+				wrapper.append(fieldHTML);
+				break;
+			
+			case '3':
+				fieldHTML = `
+					<label for="jobProgram" class="col-sm-4 col-form-label">Selecione o dia</label>
+					<div class="col-sm-8">
+						<select id="recurrence" class="form-select" aria-label="Recorrência do Backup" name="jobProgram[monthly]">
+						<option value="0">Selecione...</option>`;
+				for (let i = 1; i <= 31; i++) {
+					fieldHTML += '<option value="' + i + '">' + i + '</option>'
+				}
+
+				fieldHTML +=`</select>
+				</div>`;
+				
+				wrapper.children('label').remove();
+				wrapper.children('div').remove();
+				wrapper.append(fieldHTML);
+				break;
+			
+			case '4':
+				fieldHTML = `
+					<label for="jobProgram" class="col-sm-4 col-form-label">Selecione</label>
+					<div class="col-sm-4">
+						<select id="recurrence" class="form-select" aria-label="Recorrência do Backup" name="jobProgram[semi-annual][day]">
+						<option value="0">Dia...</option>`;
+				for (let i = 1; i <= 31; i++) {
+					fieldHTML += '<option value="' + i + '">' + i + '</option>'
+				}
+
+				fieldHTML +=`
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<select id="recurrence" class="form-select" aria-label="Recorrência do Backup" name="jobProgram[semi-annual][month]">
+							<option value="">Mês...</option>
+							<option value="Jan">Janeiro</option>
+							<option value="Feb">Fevereiro</option>
+							<option value="Mar">Março</option>
+							<option value="Apr">Abril</option>
+							<option value="May">Maio</option>
+							<option value="Jun">Junho</option>
+							<option value="Jul">Julho</option>
+							<option value="Aug">Agosto</option>
+							<option value="Sep">Setembro</option>
+							<option value="Oct">Outubro</option>
+							<option value="Nov">Novembro</option>
+							<option value="Dec">Dezembro</option>
+						</select>
+					</div>`;
+				
+				wrapper.children('label').remove();
+				wrapper.children('div').remove();
+				wrapper.append(fieldHTML);
+				break;
+
+			case '5':
+				fieldHTML = `
+					<label for="jobProgram" class="col-sm-4 col-form-label">Selecione</label>
+					<div class="col-sm-4">
+						<select id="recurrence" class="form-select" aria-label="Recorrência do Backup" name="jobProgram[annually][day]">
+						<option value="0">Dia...</option>`;
+				for (let i = 1; i <= 31; i++) {
+					fieldHTML += '<option value="' + i + '">' + i + '</option>'
+				}
+
+				fieldHTML +=`
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<select class="form-select" aria-label="Recorrência do Backup" name="jobProgram[annually][month]">
+							<option value="">Mês...</option>
+							<option value="Jan">Janeiro</option>
+							<option value="Feb">Fevereiro</option>
+							<option value="Mar">Março</option>
+							<option value="Apr">Abril</option>
+							<option value="May">Maio</option>
+							<option value="Jun">Junho</option>
+							<option value="Jul">Julho</option>
+							<option value="Aug">Agosto</option>
+							<option value="Sep">Setembro</option>
+							<option value="Oct">Outubro</option>
+							<option value="Nov">Novembro</option>
+							<option value="Dec">Dezembro</option>
+						</select>
+					</div>`;
+				
+				wrapper.children('label').remove();
+				wrapper.children('div').remove();
+				wrapper.append(fieldHTML);
+				break;
+		}
+	});
+});
+
 //LIMPAR FORMULÁRIO
 function resetForm($formID) {
     document.getElementById($formID).reset();
@@ -301,6 +465,25 @@ $(document).ready(function (){
 			$('#modalEdit').modal('show');
 		}
 	}
+});
+
+//EDIÇÃO DE JOBS
+$(document).ready(function (){
+	var currentUrl = window.location.href; 
+	currentUrl = currentUrl.split('/jobs/');
+	if(currentUrl[1]){
+		var action = currentUrl[1].split('/');
+		if (action[1] == 'edit'){
+			//console.log('edit');
+			$('#modalEdit').modal('show');
+		}
+	}
+});
+
+//MODAL EDIT
+$('#modalEdit').ready(function () {
+	var recurrence = $('#recurrence2')
+	var selectVal = $('#recurrence2 option:selected').val();
 });
 
 //FECHAR ALERTA

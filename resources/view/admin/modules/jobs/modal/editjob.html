@@ -1,10 +1,10 @@
 <!-- Modal Cadastro Host -->
-<div id="modalJobs" class="modal hide fade in" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1">
+<div id="modalEdit" class="modal hide fade in" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1">
     <div class="modal-dialog">
         <form method="post" id="jobForm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Novo Job</h3>
+                    <h3 class="modal-title">{{title}}</h3>
                     <button type="button" class="btn btn-close" onclick="resetForm('jobForm')" data-bs-dismiss="modal"></button>
                 </div><!--Fim modal header-->
 
@@ -13,7 +13,7 @@
                     <div class="row mb-3">
                         <label for="jobName" class="col-sm-3 col-form-label">Nome do Job</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="jobName" name="jobName">
+                            <input type="text" class="form-control" id="jobName" name="jobName" value="{{jobName}}">
                         </div>
                     </div>
 
@@ -22,8 +22,8 @@
                         <div class="col-sm-8">
                             <select class="form-select" aria-label="Tipo de Backup" name="jobType">
                                 <option value="">Selecione...</option>
-                                <option value="1">Incremental</option>
-                                <option value="2">Full</option>
+                                <option value="1" {{inc}}>Incremental</option>
+                                <option value="2" {{full}}>Full</option>
                             </select>
                         </div>
                     </div>
@@ -31,28 +31,28 @@
                     <div class="row mb-3">
                         <label for="jobRecurrence" class="col-sm-4 col-form-label">Recorrência</label>
                         <div class="col-sm-8">
-                            <select id="recurrence" class="form-select jobRecurrence" aria-label="Recorrência do Backup" name="jobRecurrence">
+                            <select id="recurrence2" class="form-select jobRecurrence" aria-label="Recorrência do Backup" name="jobRecurrence">
                                 <option value="">Selecione...</option>
-                                <option value="1">Diária</option>
-                                <option value="2">Semanal</option>
-                                <option value="3">Mensal</option>
-                                <option value="4">Semestral</option>
-                                <option value="5">Anual</option>
+                                <option value="1" {{diario}}>Diária</option>
+                                <option value="2" {{semanal}}>Semanal</option>
+                                <option value="3" {{mensal}}>Mensal</option>
+                                <option value="4" {{semestral}}>Semestral</option>
+                                <option value="5" {{anual}}>Anual</option>
                             </select>
                         </div>
                     </div>     
                     
-                    <div class="row mb-3 jobDate d-none">
-                        
+                    <div class="row mb-3 jobDate2">
+                        {{Date}}
                     </div>
 
                     <div class="input-group mb-3">
                         <label for="jobHost" class="col-sm-4 col-form-label">Horário</label>
                         <div class="col-sm-8">
                             <div class="input-group">
-                                <input type="number" class="form-control text-end" name="jobTime[hour]" placeholder="Hora" aria-label="Hour" min="0" max="23">
+                                <input type="number" class="form-control text-end" name="jobTime[hour]" placeholder="Hora" aria-label="Hour" min="0" max="23" value="{{hora}}">
                                 <span class="input-group-text">:</span>
-                                <input type="number" class="form-control text-start" name="jobTime[minutes]" placeholder="Minuto" aria-label="Minutes" min="0" max="59">
+                                <input type="number" class="form-control text-start" name="jobTime[minutes]" placeholder="Minuto" aria-label="Minutes" min="0" max="59" value="{{minutos}}">
                             </div>
                         </div>
                     </div>
@@ -71,14 +71,14 @@
                     <div class="row mb-3">
                         <label for="description" class="col-sm-2 col-form-label">Descrição</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Descrição/Observações do Job..." name="jobDescription" id="description"></textarea>
+                            <textarea class="form-control" aria-label="With textarea" placeholder="Descrição/Observações do Job..." name="jobDescription" id="description">{{jobDescription}}</textarea>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label for="jobName" class="col-sm-4 col-form-label">Retention Points</label>
                         <div class="col-sm-4">
-                            <input type="number" class="form-control" id="jobRetention" name="jobRetention" min="3" max="10" placeholder="Manter X cópias recentes...">
+                            <input type="number" class="form-control" id="jobRetention" name="jobRetention" min="3" max="10" placeholder="Manter X cópias recentes..." value="{{jobRetention}}">
                         </div>
                     </div>
 
@@ -86,10 +86,10 @@
 
                 <div class="modal-footer">
                     <button type="button" onclick="resetForm('jobForm')" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="submit" class="btn btn-primary">Atualizar</button>
                     </form>
                 </div><!--fim modal footer-->
             </div><!--fim do modal content-->
         </form>
-    </div><!--fim modal dialog-->
+    </div><!--fim modal dialog>
 </div><!--fim modal-->

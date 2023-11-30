@@ -65,7 +65,7 @@ class Host extends Page{
             'modalEdit'     => '',
             'status'        => self::getStatus($request)
         ]);
-
+        
         //RETORNA A PÁGINA COMPLETA
         return parent::getPanel('SISBACKUP::Hosts', $content,'hosts');
     }
@@ -78,6 +78,8 @@ class Host extends Page{
     public static function setNewHost($request){
         //DADOS DO POST
         $postVars = $request->getPostVars();
+
+        self::createConf($postVars);
 
         //NOVA INSTANCIA DE JOB
         $obHost = new EntityHost;
@@ -277,11 +279,40 @@ class Host extends Page{
             $request->getRouter()->redirect('/admin/hosts?status=erro'); 
         }
 
-        
-        
-
-               
-    
     }
-    
+
+    /**
+     * Método responsável por criar arquivo de configuração do host
+     */
+    public function createConf($postVars){
+
+        //CONFIGURA OS NOMES DOS BANCOS
+        $dbNames = explode(' ', $postVars['dbNames']);
+        $database_names = "( ";
+        foreach($dbNames as $dbName){
+            $database_names .= '"'.$dbName.'" ';
+        }
+        $database_names .= ")";
+
+        $configuracoes = [
+            "remote_server" => $postVars["hostUser"].'@'.$postVars["hostIP"],
+            "backup_directory" => getenv("BACKUP_DIRECTORY"),
+            "backup_prefix" => $postVars["hostName"],
+            "mysql_user" => $postVars["dbUser"],
+            "mysql_password" => $postVars["dbPass"],
+            "mysql_host" => $postVars["hostIP"],
+            "backup_databases" => $postVars["hasDB"],
+            "database_names" => $database_names,
+            "backup_type" => "",
+            "source_directories" => "",
+            "backup_count" => ""
+        ];
+        #$hostConfPath = getenv("DOCUMENT_ROOT").'backup/hosts/'.$postVars['hostName'].'.conf';
+        #$confFile = fopen($hostConfPath, "w") or die("Unable to open file!"); 
+
+        echo "<pre>";
+        #$texto = file_get_contents($hostConfPath);
+        print_r($configuracoes);
+        echo "</pre>"; exit;
+    }
 }

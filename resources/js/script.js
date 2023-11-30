@@ -404,17 +404,29 @@ $(document).ready(function () {
 	$(hasDB).on('change', function () {
 		var selectVal = $('#hasDB option:selected').val();
 		var wrapper = $('.dbNames');
+		var wrapper2 = $('.dbUser');
 
 		fieldHTML = `
 			<label for="dbNames" class="col-sm-5 col-form-label">Nome(s) do(s) Banco(s)</label>
 			<div class="col-sm-7">
 				<input type="text" class="form-control" id="dbNames" name="dbNames" placeholder="Nomes separados por espaço">
 			</div>`;
+		
+		fieldHTML2 = `
+			<input type="text" class="form-control" name="dbUser" placeholder="Usuário DB" aria-label="Username">
+			<span class="input-group-text">:</span>
+			<input type="text" class="form-control" name="dbPass" placeholder="Senha DB" aria-label="Server">
+		`;
 
 		if (selectVal == 'True') {
+			wrapper2.removeClass('d-none');
+			wrapper2.append(fieldHTML2);
 			wrapper.removeClass('d-none');
 			wrapper.append(fieldHTML)
 		}else {
+			wrapper2.children('input').remove();
+			wrapper2.children('span').remove();
+			wrapper2.addClass('d-none')
 			wrapper.children('label').remove();
 			wrapper.children('div').remove();
 			wrapper.addClass('d-none')
@@ -433,6 +445,7 @@ $(document).ready(function () {
 	$(hasDB).on('change', function () {
 		var selectVal = $('#editDB option:selected').val();
 		var wrapper = $('.editDbNames');
+		var wrapper2 = $('.editDBUser');
 
 		fieldHTML = `
 			<label for="editDbNames" class="col-sm-5 col-form-label">Nome(s) do(s) Banco(s)</label>
@@ -440,13 +453,25 @@ $(document).ready(function () {
 				<input type="text" class="form-control" id="editDbNames" name="dbNames" placeholder="Nomes separados por espaço">
 			</div>`;
 
+		fieldHTML2 = `
+			<input type="text" class="form-control" name="dbUser" placeholder="Usuário DB" aria-label="Username">
+			<span class="input-group-text">:</span>
+			<input type="text" class="form-control" name="dbPass" placeholder="Senha DB" aria-label="Server">
+		`;
+
 		if (selectVal == 'True') {
+			wrapper2.children('input').remove();
+			wrapper2.children('span').remove();
+			wrapper2.removeClass('d-none');
+			wrapper2.append(fieldHTML2);
 			wrapper.children('label').remove();
 			wrapper.children('div').remove();
 			wrapper.removeClass('d-none');
 			wrapper.append(fieldHTML);
-			console.log('executei');
 		}else {
+			wrapper2.children('input').remove();
+			wrapper2.children('span').remove();
+			wrapper2.addClass('d-none');
 			wrapper.children('label').remove();
 			wrapper.children('div').remove();
 			wrapper.addClass('d-none');

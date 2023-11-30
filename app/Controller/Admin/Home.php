@@ -14,7 +14,7 @@ class Home extends Page{
     public static function getHome($request){
         //CONTEÚDO DA HOME
         $content = View::render('admin/modules/home/index',[]);
-
+        
         //RETORNA A PÁGINA COMPLETA
         return parent::getPanel('SISBACKUP::Início', $content,'home');
     }

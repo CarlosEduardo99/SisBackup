@@ -114,6 +114,8 @@ class Host{
             'directory'         => $this->directory
         ]);
 
+        self::createConf();
+        
         //SUCESSO
         return true;
 
@@ -150,4 +152,5 @@ class Host{
     public static function getHosts($where = null, $join = null, $on = null,$order = null, $limit = null, $fields = '*'){
         return (new Database('hosts'))->select($where,$join,$on,$order,$limit,$fields);
     }
+
 }
